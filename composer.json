@@ -3,7 +3,7 @@
     "keywords": ["yii", "jwt", "Auth0"],
     "description": "Set of classes for easier JWT integration",
     "homepage": "https://github.com/damirka/yii2-jwt",
-    "minimum-stability": "dev-master",
+    "minimum-stability": "dev",
     "type": "yii2-extension",
     "license": "MIT",
     "authors": [
