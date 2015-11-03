@@ -17,6 +17,7 @@
         "psr-4": {"damirka\\JWT\\": "src/"}
     },
     "require": {
-        "yiisoft/yii2": "*"
+        "yiisoft/yii2": "*",
+        "firebase/php-jwt": "*"
     }
 }
