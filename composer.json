@@ -1,0 +1,22 @@
+{
+    "name": "damirka/yii2-jwt",
+    "keywords": ["yii", "jwt", "Auth0"],
+    "description": "Set of classes for easier JWT integration",
+    "homepage": "https://github.com/damirka/yii2-jwt",
+    "minimum-stability": "dev-master",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Damir Shamanaev",
+            "email": "damirka.ru@gmail.com",
+            "homepage": "https://github.com/damirka",
+        }
+    ],
+    "autoload": {
+        "psr-4": {"damirka\\JWT\\": "src/"}
+    },
+    "require": {
+        "yiisoft/yii2": "*"
+    }
+}
