@@ -16,9 +16,8 @@ Or add this line to *require* section of composer.json:
 
 There are:
 
-1. *AccessFilter* - Access filter to use in REST-controllers
-2. *IdentityInterface* - Interface that must be implemented in your User model
-3. *UserTrait* - Trait which gives you 5 methods for authorization and JWT-management in User model
+1. *IdentityInterface* - Interface that must be implemented in your User model
+2. *UserTrait* - Trait which gives you 5 methods for authorization and JWT-management in User model
 
 Set up:
 
@@ -29,16 +28,15 @@ In controller:
 
 // ...
 
-use damirka\JWT\AccessFilter;
+use yii\filters\auth\HttpBearerAuth;
 
-class JWTAuthController extends \yii\rest\ActiveController
+class BearerAuthController extends \yii\rest\ActiveController
 {
     public function behaviors()
     {
         return array_merge(parent::behaviors(), [
-            'authenticator' => [
-                'class' => AccessFilter::className(),
-                'tokenHeader' => 'Authorization',
+            'bearerAuth' => [
+                'class' => HttpBearerAuth::className()
             ]
         ]);
     }
