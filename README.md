@@ -15,9 +15,10 @@ Or add this line to *require* section of composer.json:
 ## Usage
 
 There are:
-    * JWT\AccessFilter - Access filter to use in REST-controllers
-    * JWT\IdentityInterface - Interface that must be implemented in your User model (any model that's used for authorization)
-    * JWT\UserTrait - Trait which gives you 5 methods for authorization and JWT-management in User model
+
+1. *AccessFilter* - Access filter to use in REST-controllers
+2. *IdentityInterface* - Interface that must be implemented in your User model
+3. *UserTrait* - Trait which gives you 5 methods for authorization and JWT-management in User model
 
 Set up:
 
