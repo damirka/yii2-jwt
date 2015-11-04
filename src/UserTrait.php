@@ -19,7 +19,7 @@ trait UserTrait
      * - array (token) must contain 'jti' param - the id of existing user
      * @param  string $accessToken access token to decode
      * @return mixed|null          User model or null if there's no user
-     * @throws \yii\web\ForbiddenHttpException if anything went wrong
+     * @throws \yii\web\UnauthorizedHttpException if anything went wrong
      */
     public static function findIdentityByAccessToken($token, $type = null) {
 
@@ -54,7 +54,7 @@ trait UserTrait
      * Override this method in model if you need to complicate id-management
      * @param  integer $id if of user to search
      * @return mixed       User model
-     * @throws \yii\web\ForbiddenHttpException if model is not found
+     * @throws \yii\web\UnauthorizedHttpException if model is not found
      */
     public static function findByJTI($id)
     {

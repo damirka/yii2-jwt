@@ -3,11 +3,10 @@
 namespace damirka\JWT;
 
 /**
- * REST Access filter for handling JWT authorization
+ * Filter for handling JWT authorization in REST controller
  */
 class AccessFilter extends \yii\filters\auth\AuthMethod
 {
-
     /**
      * Name of HTTP header where to get token from
      * @var string
@@ -38,9 +37,9 @@ class AccessFilter extends \yii\filters\auth\AuthMethod
     }
 
     /**
-     * Cuts off first 7 symbols of header string as they must be 'Bearer\ '
-     * @param  string $header Correctly formed header
-     * @return string         Parsed JWT
+     * Removes 'Bearer\ ' from the header as it must be according to RFC 7519
+     * @param  string $header correctly formed header
+     * @return string         raw JWT token
      */
     public static function cutHeader($header)
     {
