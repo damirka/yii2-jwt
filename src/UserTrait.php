@@ -98,7 +98,7 @@ trait UserTrait
         // Collect all the data
         $secret = self::getSecretKey();
         $currentTime = time();
-        $hostInfo = 'example.com';//Yii::$app->request->hostInfo;
+        $hostInfo = Yii::$app->request->hostInfo;
 
         // Merge token with presets not to miss any params in custom
         // configuration
