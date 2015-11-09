@@ -15,11 +15,23 @@ use yii\web\UnauthorizedHttpException;
 trait UserTrait
 {
     /**
+     * Getter for secret key that's used for generation of JWT
+     * @return string secret key used to generate JWT
+     */
+    abstract protected static function getSecretKey();
+
+    /**
+     * Getter for "header" array that's used for generation of JWT
+     * @return array JWT Header Token param, see http://jwt.io/ for details
+     */
+    abstract protected static function getHeaderToken();
+
+    /**
      * Logins user by given JWT encoded string. If string is correctly decoded
      * - array (token) must contain 'jti' param - the id of existing user
      * @param  string $accessToken access token to decode
      * @return mixed|null          User model or null if there's no user
-     * @throws \yii\web\UnauthorizedHttpException if anything went wrong
+     * @throws \yii\web\ForbiddenHttpException if anything went wrong
      */
     public static function findIdentityByAccessToken($token, $type = null) {
 
@@ -54,7 +66,7 @@ trait UserTrait
      * Override this method in model if you need to complicate id-management
      * @param  integer $id if of user to search
      * @return mixed       User model
-     * @throws \yii\web\UnauthorizedHttpException if model is not found
+     * @throws \yii\web\ForbiddenHttpException if model is not found
      */
     public static function findByJTI($id)
     {
@@ -98,7 +110,7 @@ trait UserTrait
         // Collect all the data
         $secret = self::getSecretKey();
         $currentTime = time();
-        $hostInfo = Yii::$app->request->hostInfo;
+        $hostInfo = 'example.com';//Yii::$app->request->hostInfo;
 
         // Merge token with presets not to miss any params in custom
         // configuration

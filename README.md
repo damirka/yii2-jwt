@@ -14,10 +14,8 @@ Or add this line to *require* section of composer.json:
 
 ## Usage
 
-There are:
-
-1. *IdentityInterface* - Interface that must be implemented in your User model
-2. *UserTrait* - Trait which gives you 5 methods for authorization and JWT-management in User model
+There is only one trait - *UserTrait* - which gives you 5 methods for
+authorization and JWT-management in User model
 
 Set up:
 
@@ -53,14 +51,12 @@ In User model:
 // ...
 
 use yii\db\ActiveRecord;
-
-// IdentityInterface is inherited from \yii\web\IdentityInterface
-// so all the requirements of yii-default IdentityInterface are
-// present in custom interface
-use damirka\JWT\IdentityInterface;
+use yii\web\IdentityInterface
 
 class User extends ActiveRecord implements IdentityInterface
 {
+    // Just use trait in User model, implement two abstract methods and that's
+    // all you've got to do
     use \damirka\JWT\UserTrait;
 
     // ...
