@@ -39,8 +39,6 @@ class BearerAuthController extends \yii\rest\ActiveController
         ]);
     }
 }
-
-?>
 ```
 
 In User model:
@@ -61,6 +59,4 @@ class User extends ActiveRecord implements IdentityInterface
 
     // ...
 }
-
-?>
 ```
