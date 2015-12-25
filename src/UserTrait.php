@@ -35,13 +35,13 @@ trait UserTrait
      */
     public static function findIdentityByAccessToken($token, $type = null) {
 
-        $secret = self::getSecretKey();
+        $secret = static::getSecretKey();
         $errorText = "Incorrect token";
 
         // Decode token and transform it into array.
         // Firebase\JWT\JWT throws exception if token can not be decoded
         try {
-            $decoded = JWT::decode($token, $secret, [self::getAlgo()]);
+            $decoded = JWT::decode($token, $secret, [static::getAlgo()]);
         }
         catch (\Exception $e) {
             throw new UnauthorizedHttpException($errorText);
@@ -58,7 +58,7 @@ trait UserTrait
         // For more details: https://tools.ietf.org/html/rfc7519#section-4.1.7
         $id = $decodedArray['jti'];
 
-        return self::findByJTI($id);
+        return static::findByJTI($id);
     }
 
     /**
@@ -70,7 +70,7 @@ trait UserTrait
      */
     public static function findByJTI($id)
     {
-        $model = self::findOne($id);
+        $model = static::findOne($id);
         $errorText = "Incorrect token";
 
         // Throw error if user is missing
@@ -108,7 +108,7 @@ trait UserTrait
     public function getJWT()
     {
         // Collect all the data
-        $secret = self::getSecretKey();
+        $secret = static::getSecretKey();
         $currentTime = time();
         $hostInfo = 'example.com';//Yii::$app->request->hostInfo;
 
@@ -121,11 +121,11 @@ trait UserTrait
             'iat' => $currentTime,
             'nbf' => $currentTime
 
-        ], self::getHeaderToken());
+        ], static::getHeaderToken());
 
         // Set up id
         $token['jti'] = $this->getJTI();
 
-        return JWT::encode($token, $secret, self::getAlgo());
+        return JWT::encode($token, $secret, static::getAlgo());
     }
 }
