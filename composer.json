@@ -21,6 +21,12 @@
     "autoload": {
         "psr-4": {"wilianto\\JWT\\": "src/"}
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/damirka/yii2-jwt"
+        }
+    ],
     "require": {
         "yiisoft/yii2": "*",
         "firebase/php-jwt": "*"
