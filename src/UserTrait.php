@@ -1,6 +1,6 @@
 <?php
 
-namespace damirka\JWT;
+namespace wilianto\JWT;
 
 use Firebase\JWT\JWT;
 
@@ -37,6 +37,7 @@ trait UserTrait
         $decodedArray = static::decodeJWT($token);
 
         // If there's no jti param - exception
+        // If token has expired
         if (!isset($decodedArray['jti'])) {
             throw new UnauthorizedHttpException($errorText);
         }
@@ -127,6 +128,11 @@ trait UserTrait
 
         // Set up id user
         $token['jti'] = $this->getJTI();
+        //set exp if not isset
+        if(!isset($token['exp'])){
+            //default value is an hour from now
+            $token['exp'] = time() + 3600;
+        }
 
         return JWT::encode($token, $secret, static::getAlgo());
     }

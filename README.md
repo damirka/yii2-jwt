@@ -5,11 +5,11 @@ JWT implementation for Yii2 Authorization process
 
 To install (only master is available now) run:
 ```
-    composer require "damirka/yii2-jwt:dev-master"
+    composer require "wilianto/yii2-jwt"
 ```
 Or add this line to *require* section of composer.json:
 ```
-    "damirka/yii2-jwt:dev-master": "dev-master"
+    "wilianto/yii2-jwt": "dev-master"
 ```
 
 ## Usage
@@ -55,7 +55,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     // Just use trait in User model, implement two abstract methods and that's
     // all you've got to do
-    use \damirka\JWT\UserTrait;
+    use \wilianto\JWT\UserTrait;
 
     // ...
 }
