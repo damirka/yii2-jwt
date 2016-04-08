@@ -18,13 +18,19 @@ trait UserTrait
      * Getter for secret key that's used for generation of JWT
      * @return string secret key used to generate JWT
      */
-    abstract protected static function getSecretKey();
+    protected static function getSecretKey()
+    {
+        return '';
+    }
 
     /**
      * Getter for "header" array that's used for generation of JWT
      * @return array JWT Header Token param, see http://jwt.io/ for details
      */
-    abstract protected static function getHeaderToken();
+    protected static function getHeaderToken()
+    {
+        return [];
+    }
 
     /**
      * Logins user by given JWT encoded string. If string is correctly decoded
@@ -33,17 +39,16 @@ trait UserTrait
      * @return mixed|null          User model or null if there's no user
      * @throws \yii\web\ForbiddenHttpException if anything went wrong
      */
-    public static function findIdentityByAccessToken($token, $type = null) {
-
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
         $secret = static::getSecretKey();
-        $errorText = "Incorrect token";
+        $errorText = 'Incorrect token';
 
         // Decode token and transform it into array.
         // Firebase\JWT\JWT throws exception if token can not be decoded
         try {
             $decoded = JWT::decode($token, $secret, [static::getAlgo()]);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             throw new UnauthorizedHttpException($errorText);
         }
 
@@ -71,7 +76,7 @@ trait UserTrait
     public static function findByJTI($id)
     {
         $model = static::findOne($id);
-        $errorText = "Incorrect token";
+        $errorText = 'Incorrect token';
 
         // Throw error if user is missing
         if (empty($model)) {
@@ -103,7 +108,7 @@ trait UserTrait
 
     /**
      * Encodes model data to create custom JWT with model.id set in it
-     * @return sting encoded JWT
+     * @return string encoded JWT
      */
     public function getJWT()
     {
@@ -115,12 +120,10 @@ trait UserTrait
         // Merge token with presets not to miss any params in custom
         // configuration
         $token = array_merge([
-
             'iss' => $hostInfo,
             'aud' => $hostInfo,
             'iat' => $currentTime,
             'nbf' => $currentTime
-
         ], static::getHeaderToken());
 
         // Set up id
