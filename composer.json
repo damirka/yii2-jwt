@@ -1,9 +1,9 @@
 {
     "name": "damirka/yii2-jwt",
-    "keywords": ["yii", "jwt", "Auth0"],
-    "description": "Set of classes for easier JWT integration",
+    "keywords": ["yii", "jwt"],
+    "description": "Trait for easier JWT integration",
     "homepage": "https://github.com/damirka/yii2-jwt",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "type": "yii2-extension",
     "license": "MIT",
     "authors": [
@@ -17,7 +17,7 @@
         "psr-4": {"damirka\\JWT\\": "src/"}
     },
     "require": {
-        "yiisoft/yii2": "*",
-        "firebase/php-jwt": "*"
+        "yiisoft/yii2": "~2.0.0",
+        "firebase/php-jwt": "~3.0.0"
     }
 }

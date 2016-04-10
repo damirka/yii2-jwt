@@ -1,5 +1,8 @@
 # yii2-jwt
+
 JWT implementation for Yii2 Authorization process
+
+For details see [JWT official website](https://jwt.io/introduction/).
 
 ## Installation
 
@@ -53,9 +56,20 @@ use yii\web\IdentityInterface
 
 class User extends ActiveRecord implements IdentityInterface
 {
-    // Just use trait in User model, implement two abstract methods and that's
-    // all you've got to do
+    // Use the trait in your User model
     use \damirka\JWT\UserTrait;
+
+    // Override this method
+    protected static function getSecretKey()
+    {
+        return 'someSecretKey';
+    }
+
+    // And this one if you wish
+    protected static function getHeaderToken()
+    {
+        return [];
+    }
 
     // ...
 }

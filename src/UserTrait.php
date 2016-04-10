@@ -6,6 +6,7 @@ use Firebase\JWT\JWT;
 
 use Yii;
 use yii\web\UnauthorizedHttpException;
+use yii\web\Request as WebRequest;
 
 /**
  * Trait to handle JWT-authorization process. Should be attached to User model.
@@ -113,9 +114,15 @@ trait UserTrait
     public function getJWT()
     {
         // Collect all the data
-        $secret = static::getSecretKey();
+        $secret      = static::getSecretKey();
         $currentTime = time();
-        $hostInfo = 'example.com';//Yii::$app->request->hostInfo;
+        $request     = Yii::$app->request;
+        $hostInfo    = '';
+
+        // There is also a \yii\console\Request that doesn't have this property
+        if ($request instanceof WebRequest) {
+            $hostInfo = $request->hostInfo;
+        }
 
         // Merge token with presets not to miss any params in custom
         // configuration
