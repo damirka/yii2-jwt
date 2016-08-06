@@ -5,7 +5,6 @@ namespace damirka\JWT;
 use Firebase\JWT\JWT;
 
 use Yii;
-use yii\web\UnauthorizedHttpException;
 use yii\web\Request as WebRequest;
 
 /**
@@ -15,6 +14,13 @@ use yii\web\Request as WebRequest;
  */
 trait UserTrait
 {
+    
+    /**
+     * Store JWT token header items.
+     * @var array
+     */
+    protected $decodedToken;
+    
     /**
      * Getter for secret key that's used for generation of JWT
      * @return string secret key used to generate JWT
@@ -43,26 +49,25 @@ trait UserTrait
     public static function findIdentityByAccessToken($token, $type = null)
     {
         $secret = static::getSecretKey();
-        $errorText = 'Incorrect token';
 
         // Decode token and transform it into array.
         // Firebase\JWT\JWT throws exception if token can not be decoded
         try {
             $decoded = JWT::decode($token, $secret, [static::getAlgo()]);
         } catch (\Exception $e) {
-            throw new UnauthorizedHttpException($errorText);
+            return false;
         }
 
-        $decodedArray = (array) $decoded;
+        $this->decodedToken = (array) $decoded;
 
         // If there's no jti param - exception
-        if (!isset($decodedArray['jti'])) {
-            throw new UnauthorizedHttpException($errorText);
+        if (!isset($this->decodedToken['jti'])) {
+            return false;
         }
 
         // JTI is unique identifier of user.
         // For more details: https://tools.ietf.org/html/rfc7519#section-4.1.7
-        $id = $decodedArray['jti'];
+        $id = $this->decodedToken['jti'];
 
         return static::findByJTI($id);
     }
@@ -70,21 +75,12 @@ trait UserTrait
     /**
      * Finds User model using static method findOne
      * Override this method in model if you need to complicate id-management
-     * @param  integer $id if of user to search
+     * @param  string $id if of user to search
      * @return mixed       User model
-     * @throws \yii\web\ForbiddenHttpException if model is not found
      */
     public static function findByJTI($id)
     {
-        $model = static::findOne($id);
-        $errorText = 'Incorrect token';
-
-        // Throw error if user is missing
-        if (empty($model)) {
-            throw new UnauthorizedHttpException($errorText);
-        }
-
-        return $model;
+        return static::findOne($id);
     }
 
     /**
