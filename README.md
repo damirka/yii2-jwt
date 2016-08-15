@@ -8,11 +8,11 @@ For details see [JWT official website](https://jwt.io/introduction/).
 
 To install (only master is available now) run:
 ```
-    composer require "damirka/yii2-jwt:v0.1.0"
+    composer require "damirka/yii2-jwt:v0.2.0"
 ```
 Or add this line to *require* section of composer.json:
 ```
-    "damirka/yii2-jwt": "v0.1.0"
+    "damirka/yii2-jwt": "v0.2.0"
 ```
 
 ## Usage
