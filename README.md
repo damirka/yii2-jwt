@@ -12,7 +12,7 @@ To install (only master is available now) run:
 ```
 Or add this line to *require* section of composer.json:
 ```
-    "damirka/yii2-jwt": "v0.2.0"
+    "damirka/yii2-jwt": "v0.2.1"
 ```
 
 ## Usage
