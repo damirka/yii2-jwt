@@ -19,7 +19,7 @@ trait UserTrait
      * Store JWT token header items.
      * @var array
      */
-    protected $decodedToken;
+    protected static $decodedToken;
     
     /**
      * Getter for secret key that's used for generation of JWT
@@ -58,16 +58,16 @@ trait UserTrait
             return false;
         }
 
-        $this->decodedToken = (array) $decoded;
+        static::$decodedToken = (array) $decoded;
 
         // If there's no jti param - exception
-        if (!isset($this->decodedToken['jti'])) {
+        if (!isset(static::$decodedToken['jti'])) {
             return false;
         }
 
         // JTI is unique identifier of user.
         // For more details: https://tools.ietf.org/html/rfc7519#section-4.1.7
-        $id = $this->decodedToken['jti'];
+        $id = static::$decodedToken['jti'];
 
         return static::findByJTI($id);
     }
